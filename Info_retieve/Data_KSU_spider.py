@@ -43,7 +43,7 @@ sourceFile = open("Assignment1.txt", 'w')
 for word in entry_words:
     if len(word) >= 3:
         if word.isnumeric() != True:
-            if word not in stop_space:
+            if word not in stop_words:
                 word_filter.append(word)
         else:
             continue
@@ -51,10 +51,11 @@ for word in entry_words:
         continue
 
 for word in entry_words:
-    if word not in stop_words:
+    if word not in stop_space:
         space_filter.append(word)
     else:
         continue
+
 
 for word in entry_words:
     if word in emails:
@@ -82,6 +83,7 @@ print('{:^2.3f}'.format(average_length), file = sourceFile)
 print(dash, file = sourceFile)
 print('{:<40s}{:>8s}'.format("Email", "Count"), file = sourceFile)
 print(dash, file = sourceFile)
+
 for word, count in final_email.most_common(30):
     print('{:<30s}{:>8d}'.format(word, count), file = sourceFile)
 print("\nPercent of webpages with Email", file = sourceFile)
@@ -134,9 +136,14 @@ plot.plot(x_plot, y_plot)
 plot.savefig("Plot1.pdf")
 
 plot.clf()
+plot.title("Word Frequencies Log Plot")
+plot.ylabel("Frequency")
+plot.xlabel("Rank of word")
 
 xlog = np.log(x_plot)
 ylog = np.log(y_plot)
+
+plot.autoscale()
 
 plot.plot(xlog, ylog)
 plot.savefig("Plot2.pdf")
@@ -150,8 +157,4 @@ merger.write("Assignment1.pdf")
 merger.close()
 
 file.close()
-
-
-
-
 
